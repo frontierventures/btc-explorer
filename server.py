@@ -10,6 +10,7 @@ from twisted.web.static import File
 
 import explorer
 import sys
+import json
 import elements
 
 
@@ -39,9 +40,24 @@ class Page(Element):
         slots['difficulty'] = "Difficulty: %s" % self.output['result']['difficulty']
         yield tag.clone().fillSlots(**slots) 
 
+
+class NewAddress(Resource):
+    def render(self, request):
+        print 'request.args: %s' % request.args
+
+        address = explorer.getNewAddress('')['result']
+
+        sessionResults = []
+        sessionResults.append(address)
+        #for result in results:
+        #    sessionResults.append([result['name'], result['value'], result['expires_in']])
+        return json.dumps(sessionResults) 
+
 log.startLogging(sys.stdout)
 root = Main()
 root.putChild('', root)
+root.putChild('getNewAddress', NewAddress())
+root.putChild('scripts', File('./scripts'))
 
 reactor.listenTCP(8888, Site(root))
 reactor.run()

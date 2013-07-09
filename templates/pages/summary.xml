@@ -8,5 +8,13 @@
     <div><t:slot name= "blocks" /></div>
     <div><t:slot name= "difficulty" /></div>
 </div>
+<div id="results"></div>
+<div>
+<form id="newAddressForm" action="../getNewAddress" method="post" enctype="application/x-www-form-urlencoded">
+    <input type="submit" value="Get New Address" />
+</form>
+</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../scripts/actions.js"></script>
 </body>
 </html>
